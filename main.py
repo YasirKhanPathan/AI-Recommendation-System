@@ -40,7 +40,6 @@ def main():
     referrals = ["No Preference"] + sorted(
         {r["referral_source"] for r in records}
     )
-    statuses = ["No Preference", "Delivered", "Shipped", "Pending", "Returned", "Cancelled"]
 
     print("\n--- Tell us about your preferences ---\n")
 
@@ -48,14 +47,12 @@ def main():
     budget = ask_choice("What is your budget range?", budgets)
     payment = ask_choice("Preferred payment method?", payments)
     referral = ask_choice("How did you hear about us?", referrals)
-    status = ask_choice("Preferred order status?", statuses)
 
     user_prefs = {
         "product": product,
         "budget": budget,
         "payment": payment,
         "referral": referral,
-        "status": status,
     }
 
     print("\n" + "=" * 60)

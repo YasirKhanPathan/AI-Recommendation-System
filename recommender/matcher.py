@@ -14,8 +14,6 @@ def get_user_features(user_prefs):
         features.add("payment:" + user_prefs["payment"])
     if user_prefs.get("referral") and user_prefs["referral"] != "No Preference":
         features.add("referral:" + user_prefs["referral"])
-    if user_prefs.get("status") and user_prefs["status"] != "No Preference":
-        features.add("status:" + user_prefs["status"])
     return features
 
 
@@ -26,8 +24,6 @@ def get_product_features(profile):
         features.add("payment:" + p)
     for r in profile["top_referrals"]:
         features.add("referral:" + r)
-    for s in profile["top_statuses"]:
-        features.add("status:" + s)
     return features
 
 
