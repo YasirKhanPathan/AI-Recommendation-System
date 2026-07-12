@@ -52,21 +52,32 @@ def main():
         results = recommend(profiles, user_prefs)
 
         st.divider()
-        st.subheader("Top Recommendations for You")
 
-        for i, (score, profile) in enumerate(results, 1):
+        if product != "No Preference":
+            st.subheader(f"Here's what we found for {product}")
+            _, profile = results[0]
             with st.container(border=True):
-                col1, col2 = st.columns([1, 3])
-                with col1:
-                    st.markdown(f"### #{i}")
-                    st.markdown(f"**{score:.0%}** match")
-                with col2:
-                    st.markdown(f"### {profile['name']}")
-                    st.markdown(
-                        f"**Avg Price:** ${profile['avg_price']:.2f} ({profile['price_category']})  |  "
-                        f"**Popular Payment:** {', '.join(profile['top_payments'])}  |  "
-                        f"**Common Referrals:** {', '.join(profile['top_referrals'])}"
-                    )
+                st.markdown(f"### {profile['name']}")
+                st.markdown(
+                    f"**Avg Price:** ${profile['avg_price']:.2f} ({profile['price_category']})  |  "
+                    f"**Popular Payment:** {', '.join(profile['top_payments'])}  |  "
+                    f"**Common Referrals:** {', '.join(profile['top_referrals'])}"
+                )
+        else:
+            st.subheader("Top Recommendations for You")
+            for i, (score, profile) in enumerate(results, 1):
+                with st.container(border=True):
+                    col1, col2 = st.columns([1, 3])
+                    with col1:
+                        st.markdown(f"### #{i}")
+                        st.markdown(f"**{score:.0%}** match")
+                    with col2:
+                        st.markdown(f"### {profile['name']}")
+                        st.markdown(
+                            f"**Avg Price:** ${profile['avg_price']:.2f} ({profile['price_category']})  |  "
+                            f"**Popular Payment:** {', '.join(profile['top_payments'])}  |  "
+                            f"**Common Referrals:** {', '.join(profile['top_referrals'])}"
+                        )
 
 
 if __name__ == "__main__":

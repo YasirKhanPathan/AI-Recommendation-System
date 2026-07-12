@@ -28,6 +28,11 @@ def get_product_features(profile):
 
 
 def recommend(profiles, user_prefs, top_n=3):
+    selected = user_prefs.get("product")
+    if selected and selected != "No Preference":
+        profile = profiles.get(selected)
+        return [(1.0, profile)] if profile else []
+
     user_features = get_user_features(user_prefs)
 
     if not user_features:
@@ -36,10 +41,7 @@ def recommend(profiles, user_prefs, top_n=3):
         scored = []
         for product, profile in profiles.items():
             product_features = get_product_features(profile)
-            if "product:" + product in user_features:
-                score = 1.0
-            else:
-                score = jaccard_similarity(user_features, product_features)
+            score = jaccard_similarity(user_features, product_features)
             scored.append((score, profile))
 
     scored.sort(key=lambda x: (-x[0], x[1]["name"]))
