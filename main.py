@@ -61,20 +61,13 @@ def main():
 
     results = recommend(profiles, user_prefs)
 
-    if product != "No Preference":
-        print(f"\n  Here's what we found for {product}:\n")
-        _, profile = results[0]
+    print("\n  Top Recommendations for You:\n")
+    for i, (score, profile) in enumerate(results, 1):
+        print(f"  {i}. {profile['name']}  (Match Score: {score:.0%})")
         print(f"     Avg Price: ${profile['avg_price']} ({profile['price_category']})")
         print(f"     Popular Payment: {', '.join(profile['top_payments'])}")
         print(f"     Common Referrals: {', '.join(profile['top_referrals'])}")
-    else:
-        print("\n  Top Recommendations for You:\n")
-        for i, (score, profile) in enumerate(results, 1):
-            print(f"  {i}. {profile['name']}  (Match Score: {score:.0%})")
-            print(f"     Avg Price: ${profile['avg_price']} ({profile['price_category']})")
-            print(f"     Popular Payment: {', '.join(profile['top_payments'])}")
-            print(f"     Common Referrals: {', '.join(profile['top_referrals'])}")
-            print()
+        print()
 
     print("=" * 60)
 

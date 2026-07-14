@@ -19,6 +19,7 @@ def get_user_features(user_prefs):
 
 def get_product_features(profile):
     features = set()
+    features.add("product:" + profile["name"])
     features.add("budget:" + profile["price_category"])
     for p in profile["top_payments"]:
         features.add("payment:" + p)
@@ -28,11 +29,6 @@ def get_product_features(profile):
 
 
 def recommend(profiles, user_prefs, top_n=3):
-    selected = user_prefs.get("product")
-    if selected and selected != "No Preference":
-        profile = profiles.get(selected)
-        return [(1.0, profile)] if profile else []
-
     user_features = get_user_features(user_prefs)
 
     if not user_features:
